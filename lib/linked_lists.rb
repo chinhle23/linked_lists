@@ -1,39 +1,41 @@
 # frozen_string_literal: true
 
 class LinkedList
-  attr_accessor :head, :tail, :size
+
+  attr_accessor :head
 
   def initialize
     @head = nil
-    @tail = nil
-    @size = 0
   end
 
-  def append(node)
+  def append(value)
+    node = Node.new(value)
+
     if @head.nil?
       @head = node
-      @tail = node
     else
-      @tail.next_node = node
-      @tail = node
+      current_node = @head
+      until current_node.next_node.nil?
+        current_node = current_node.next_node
+      end
+      current_node.next_node = node
     end
-    @size += 1
   end
 
-  def prepend(node)
+  def prepend(value)
+    node = Node.new(value)
+
     if @head.nil?
       @head = node
-      @tail = node
     else
       node.next_node = @head
       @head = node
     end
-    @size += 1
   end
 end
 
 class Node
-  attr_accessor :value, :next_node, :count
+  attr_accessor :value, :next_node
 
   def initialize(value)
     @value = value
@@ -42,12 +44,10 @@ class Node
 end
 
 linked_list = LinkedList.new
-linked_list.append(Node.new(1))
-linked_list.append(Node.new(2))
-linked_list.append(Node.new(3))
-linked_list.prepend(Node.new(0))
+linked_list.append(0)
+linked_list.append(1)
+linked_list.append(2)
+linked_list.append(3)
+linked_list.prepend(-1)
 
 p linked_list
-p linked_list.head
-p linked_list.tail
-p linked_list.size
