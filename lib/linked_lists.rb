@@ -96,6 +96,20 @@ class LinkedList
 
     return false
   end
+
+  def find(value)
+    return nil if @head.nil?
+
+    index = 1
+    current_node = @head
+    return 0 if current_node.value == value
+
+    until current_node.next_node.nil?
+      current_node = current_node.next_node
+      return index if current_node.value == value
+      index += 1
+    end
+  end
 end
 
 class Node
@@ -114,4 +128,4 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.contains?(-1)
+p linked_list.find('sup')
