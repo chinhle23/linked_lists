@@ -110,6 +110,21 @@ class LinkedList
       index += 1
     end
   end
+
+  def to_s
+    return 'nil' if @head.nil?
+
+    linked_list_str = String.new
+    current_node = @head
+    linked_list_str.concat("( #{current_node.value} ) -> ")
+
+    until current_node.next_node.nil?
+      current_node = current_node.next_node
+      linked_list_str.concat("( #{current_node.value} ) -> ")
+    end
+
+    linked_list_str.concat(' nil')
+  end
 end
 
 class Node
@@ -128,4 +143,5 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.find('sup')
+p linked_list.to_s
+puts linked_list
