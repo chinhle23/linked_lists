@@ -82,6 +82,20 @@ class LinkedList
 
     return tail
   end
+
+  def contains?(value)
+    return false if @head.nil?
+
+    current_node = @head
+    return true if current_node.value == value
+
+    until current_node.next_node.nil?
+      current_node = current_node.next_node
+      return true if current_node.value == value
+    end
+
+    return false
+  end
 end
 
 class Node
@@ -100,8 +114,4 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-popped_node = linked_list.pop
-
-p popped_node
-p linked_list
-p linked_list.size
+p linked_list.contains?(-1)
