@@ -15,9 +15,11 @@ class LinkedList
       @head = node
     else
       current_node = @head
+
       until current_node.next_node.nil?
         current_node = current_node.next_node
       end
+
       current_node.next_node = node
     end
   end
@@ -39,29 +41,46 @@ class LinkedList
     else
       count = 1
       current_node = @head
+
       until current_node.next_node.nil?
         current_node = current_node.next_node
         count += 1
       end
+
       return count
     end
   end
 
   def tail
     return nil if @head.nil?
+
     current_node = @head
+
     until current_node.next_node.nil?
       current_node = current_node.next_node
     end
+
     return current_node
   end
 
   def at(index)
     return nil if @head.nil?
+
     current_node = @head
     index.times { current_node = current_node.next_node }
 
     return current_node
+  end
+
+  def pop
+    return nil if @head.nil?
+
+    tail = self.tail
+    current_node = @head
+    (self.size - 2).times { current_node = current_node.next_node }
+    current_node.next_node = nil
+
+    return tail
   end
 end
 
@@ -81,4 +100,8 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.at(5)
+popped_node = linked_list.pop
+
+p popped_node
+p linked_list
+p linked_list.size
