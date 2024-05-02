@@ -32,6 +32,20 @@ class LinkedList
       @head = node
     end
   end
+
+  def size
+    if @head.nil?
+      return 0
+    else
+      count = 1
+      current_node = @head
+      until current_node.next_node.nil?
+        current_node = current_node.next_node
+        count += 1
+      end
+      return count
+    end
+  end
 end
 
 class Node
@@ -50,4 +64,4 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list
+p linked_list.size
