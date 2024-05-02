@@ -55,6 +55,14 @@ class LinkedList
     end
     return current_node
   end
+
+  def at(index)
+    return nil if @head.nil?
+    current_node = @head
+    index.times { current_node = current_node.next_node }
+
+    return current_node
+  end
 end
 
 class Node
@@ -73,4 +81,4 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.tail
+p linked_list.at(5)
