@@ -29,19 +29,17 @@ class LinkedList
   end
 
   def size
-    if @head.nil?
-      return 0
-    else
-      count = 1
-      current_node = @head
+    return 0 if @head.nil?
 
-      until current_node.next_node.nil?
-        current_node = current_node.next_node
-        count += 1
-      end
+    count = 1
+    current_node = @head
 
-      return count
+    until current_node.next_node.nil?
+      current_node = current_node.next_node
+      count += 1
     end
+
+    count
   end
 
   def tail
@@ -49,20 +47,19 @@ class LinkedList
 
     current_node = @head
 
-    until current_node.next_node.nil?
-      current_node = current_node.next_node
-    end
+    current_node = current_node.next_node until current_node.next_node.nil?
 
-    return current_node
+    current_node
   end
 
   def at(index)
-    return nil if @head.nil?
+    return nil if @head.nil? || (index + size).negative? || index + 1 > size
 
     current_node = @head
+    index += size if index.negative?
     index.times { current_node = current_node.next_node }
 
-    return current_node
+    current_node
   end
 
   def pop
@@ -172,5 +169,5 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.remove_at(-6)
+p linked_list.at(-6)
 p linked_list
