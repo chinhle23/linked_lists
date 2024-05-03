@@ -66,11 +66,16 @@ class LinkedList
     return nil if @head.nil?
 
     tail = self.tail
-    current_node = @head
-    (self.size - 2).times { current_node = current_node.next_node }
-    current_node.next_node = nil
 
-    return tail
+    if size == 1
+      @head = nil
+    else
+      current_node = @head
+      (size - 2).times { current_node = current_node.next_node }
+      current_node.next_node = nil
+    end
+
+    tail
   end
 
   def contains?(value)
@@ -169,5 +174,5 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.at(-6)
+p linked_list.pop
 p linked_list
