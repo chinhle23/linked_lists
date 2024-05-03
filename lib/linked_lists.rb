@@ -136,6 +136,23 @@ class LinkedList
       node.next_node = after_node
     end
   end
+
+  def remove_at(index)
+    return nil if @head.nil? || (index + size).negative? || index + 1 > size
+
+    if index.zero? || index + size <= 0
+      removed_node = @head
+      @head = @head.next_node
+    else
+      index += size if index.negative?
+      current_node = @head
+      (index - 1).times { current_node = current_node.next_node }
+      removed_node = current_node.next_node
+      current_node.next_node = current_node.next_node.next_node
+    end
+
+    removed_node
+  end
 end
 
 # The node objects that make up a linked list
@@ -155,6 +172,5 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-linked_list.insert_at(26, 4)
-p linked_list.find(26)
+p linked_list.remove_at(-6)
 p linked_list
