@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# This houses the methods of a linked list
 class LinkedList
-
   attr_accessor :head
 
   def initialize
@@ -16,9 +16,7 @@ class LinkedList
     else
       current_node = @head
 
-      until current_node.next_node.nil?
-        current_node = current_node.next_node
-      end
+      current_node = current_node.next_node until current_node.next_node.nil?
 
       current_node.next_node = node
     end
@@ -26,13 +24,8 @@ class LinkedList
 
   def prepend(value)
     node = Node.new(value)
-
-    if @head.nil?
-      @head = node
-    else
-      node.next_node = @head
-      @head = node
-    end
+    node.next_node = @head unless @head.nil?
+    @head = node
   end
 
   def size
@@ -94,7 +87,7 @@ class LinkedList
       return true if current_node.value == value
     end
 
-    return false
+    false
   end
 
   def find(value)
@@ -107,6 +100,7 @@ class LinkedList
     until current_node.next_node.nil?
       current_node = current_node.next_node
       return index if current_node.value == value
+
       index += 1
     end
   end
@@ -125,8 +119,26 @@ class LinkedList
 
     linked_list_str.concat(' nil')
   end
+
+  def insert_at(value, index)
+    node = Node.new(value)
+
+    if @head.nil? || index.zero? || index + size <= 0
+      prepend(value)
+    elsif index + 1 > size
+      append(value)
+    else
+      index += size if index.negative?
+      prior_node = @head
+      (index - 1).times { prior_node = prior_node.next_node }
+      after_node = prior_node.next_node
+      prior_node.next_node = node
+      node.next_node = after_node
+    end
+  end
 end
 
+# The node objects that make up a linked list
 class Node
   attr_accessor :value, :next_node
 
@@ -143,5 +155,6 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.prepend(-1)
 
-p linked_list.to_s
-puts linked_list
+linked_list.insert_at(26, 4)
+p linked_list.find(26)
+p linked_list
